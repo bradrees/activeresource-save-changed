@@ -9,11 +9,15 @@ module ActiveResource
       #find changes
       changed_attributes = attributes.select{|key, value| !copy.attributes.has_key?(key) or copy.attributes[key] != value or key == self.class.primary_key }
 
-      #create new object
-      to_save = self.class.new(changed_attributes, true)
+      if changed_attributes.keys.any? {|key| key != self.class.primary_key }
+        #create new object
+        to_save = self.class.new(changed_attributes, true)
 
-      #save
-      throw ? to_save.save! : to_save.save
+        #save
+        throw ? to_save.save! : to_save.save
+      else
+        nil
+      end
     end
 
     def save_changes!(&block)
