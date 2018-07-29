@@ -43,7 +43,7 @@ module ActiveResource
 
     def clone_with_nil
       # Clone all attributes except the pk and any nested ARes
-      cloned = Hash[attributes.reject {|k,v| k == self.class.primary_key || v.is_a?(ActiveResource::Base)}.map { |k, v| [k, [NilClass, TrueClass, FalseClass, Fixnum].include?(v.class) ? v : v.clone] }]
+      cloned = Hash[attributes.reject {|k,v| k == self.class.primary_key || v.is_a?(ActiveResource::Base)}.map { |k, v| [k, [NilClass, TrueClass, FalseClass, Integer, Float].include?(v.class) ? v : v.clone] }]
       # Form the new resource - bypass initialize of resource with 'new' as that will call 'load' which
       # attempts to convert hashes into member objects and arrays into collections of objects. We want
       # the raw objects to be cloned so we bypass load by directly setting the attributes hash.

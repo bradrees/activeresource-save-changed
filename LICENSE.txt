@@ -1,4 +1,4 @@
-Copyright (c) 2013 Bradley Rees
+Copyright (c) 2018 Bradley Rees
 
 MIT License
 
